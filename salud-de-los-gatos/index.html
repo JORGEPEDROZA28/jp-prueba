@@ -399,22 +399,6 @@
   </style>
 </head>
 <body>
-  <!-- NAVBAR -->
-  <nav class="navbar">
-    <div class="nav-inner">
-      <a href="#top" class="brand"><span class="logo">🐱</span> Salud Felina</a>
-      <div class="nav-links">
-        <a href="#higiene">Higiene</a>
-        <a href="#alimentacion">Alimentación</a>
-        <a href="#vacunacion">Vacunación</a>
-        <a href="#ejercicio">Ejercicio</a>
-        <a href="#salud-mental">Bienestar</a>
-        <a href="#senales">Alertas</a>
-      </div>
-      <button class="btn btn-primary" onclick="window.print()">🖨️ Descargar PDF</button>
-    </div>
-  </nav>
-
   <!-- HERO -->
   <header class="hero" id="top">
     <div class="hero-inner">
@@ -422,11 +406,6 @@
         <span class="eyebrow">🐾 Guía de cuidado felino</span>
         <h1>La salud de <span class="accent">los gatos</span></h1>
         <p class="lead">Todo lo que un buen dueño debe saber para mantener a su gato sano, feliz y lleno de energía.</p>
-        <div class="hero-actions">
-          <a href="#contenido" class="btn btn-primary">📖 Explorar la guía</a>
-          <button class="btn btn-ghost" onclick="window.print()">🖨️ Imprimir / PDF</button>
-          <button class="btn btn-ghost" onclick="compartir()">🔗 Compartir</button>
-        </div>
         <div class="byline">
           <span class="chip">✍️ Caroll Tatiana Blanco Quintero</span>
           <span class="chip">🎓 Grado 7-A</span>
@@ -588,11 +567,6 @@
         La salud de los gatos depende de una alimentación adecuada, ejercicio,
         vacunación y mucha atención. ¡Cuida a tu felino y vivirá feliz por muchos años!
       </p>
-      <div class="cta-actions">
-        <button class="btn btn-primary" onclick="window.print()">🖨️ Descargar guía</button>
-        <button class="btn btn-ghost" onclick="compartir()">🔗 Compartir</button>
-        <a href="#top" class="btn btn-ghost">⬆️ Volver arriba</a>
-      </div>
     </section>
   </main>
 
@@ -601,49 +575,5 @@
     <p>Hecho con <span class="heart">♥</span> para nuestros amigos felinos 🐾</p>
   </footer>
 
-  <button id="toTop" title="Volver arriba" aria-label="Volver arriba">↑</button>
-  <div id="toast">¡Enlace copiado! 🔗</div>
-
-  <script>
-    // Back to top visibility
-    var toTop = document.getElementById('toTop');
-    window.addEventListener('scroll', function () {
-      if (window.scrollY > 500) toTop.classList.add('show');
-      else toTop.classList.remove('show');
-    }, { passive: true });
-    toTop.addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-
-    // Active nav link highlight
-    var links = Array.prototype.slice.call(document.querySelectorAll('.nav-links a'));
-    var sections = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
-    window.addEventListener('scroll', function () {
-      var pos = window.scrollY + 120;
-      var current = -1;
-      sections.forEach(function (s, i) { if (s && s.offsetTop <= pos) current = i; });
-      links.forEach(function (a, i) { a.classList.toggle('active', i === current); });
-    }, { passive: true });
-
-    // Share / copy link
-    function showToast(msg) {
-      var t = document.getElementById('toast');
-      t.textContent = msg;
-      t.classList.add('show');
-      setTimeout(function () { t.classList.remove('show'); }, 2200);
-    }
-    function compartir() {
-      var data = { title: 'La salud de los gatos', text: 'Guía de cuidado felino 🐱', url: location.href };
-      if (navigator.share) {
-        navigator.share(data).catch(function () {});
-      } else if (navigator.clipboard) {
-        navigator.clipboard.writeText(location.href).then(function () {
-          showToast('¡Enlace copiado! 🔗');
-        }).catch(function () { showToast('No se pudo copiar 😿'); });
-      } else {
-        showToast(location.href);
-      }
-    }
-  </script>
 </body>
 </html>
