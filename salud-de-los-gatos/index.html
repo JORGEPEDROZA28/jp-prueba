@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>La salud de los gatos</title>
+  <meta name="description" content="Guía sobre el cuidado y la salud de los gatos: higiene, alimentación, vacunación, ejercicio, enfermedades comunes y bienestar emocional." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <style>
+    :root {
+      --bg: #fff7f0;
+      --bg-soft: #ffffff;
+      --text: #3a2f2a;
+      --text-soft: #6b5d54;
+      --accent: #e8804f;
+      --accent-2: #f4b183;
+      --card: #ffffff;
+      --border: #f0ddd0;
+      --curioso-bg: #fff1e0;
+      --curioso-border: #f4b183;
+      --shadow: 0 10px 30px rgba(180, 110, 60, 0.12);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #1f1a17;
+        --bg-soft: #2a2320;
+        --text: #f2e9e3;
+        --text-soft: #c4b5aa;
+        --accent: #f19b6b;
+        --accent-2: #b9713f;
+        --card: #2a2320;
+        --border: #3d332d;
+        --curioso-bg: #33261c;
+        --curioso-border: #b9713f;
+        --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { max-width: 100%; height: auto; display: block; }
+
+    /* ---------- Hero ---------- */
+    .hero {
+      position: relative;
+      text-align: center;
+      padding: 4.5rem 1.25rem 3rem;
+      background:
+        radial-gradient(1200px 400px at 50% -10%, var(--accent-2), transparent 60%),
+        var(--bg);
+      overflow: hidden;
+    }
+    .hero .paws { font-size: 1.4rem; letter-spacing: 0.4rem; opacity: 0.6; }
+    .hero h1 {
+      font-size: clamp(2.2rem, 6vw, 4rem);
+      margin: 0.6rem 0 0.3rem;
+      line-height: 1.05;
+      letter-spacing: -0.5px;
+    }
+    .hero .accent { color: var(--accent); }
+    .hero .lead {
+      max-width: 620px;
+      margin: 1rem auto 1.5rem;
+      color: var(--text-soft);
+      font-size: 1.1rem;
+    }
+    .byline {
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 0.9rem;
+      justify-content: center;
+      align-items: center;
+      font-size: 0.9rem;
+      color: var(--text-soft);
+    }
+    .byline .chip {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      box-shadow: var(--shadow);
+    }
+    .hero-img {
+      width: min(320px, 70%);
+      margin: 2rem auto 0;
+      filter: drop-shadow(0 12px 18px rgba(150, 90, 50, 0.25));
+    }
+
+    /* ---------- Layout ---------- */
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 1.25rem 1rem;
+    }
+    .intro {
+      font-size: 1.15rem;
+      color: var(--text-soft);
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 3rem;
+    }
+
+    article.section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 1.75rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 1.75rem;
+      align-items: center;
+    }
+    article.section:nth-child(even) { grid-template-columns: 1fr 200px; }
+    article.section:nth-child(even) .thumb { order: 2; }
+
+    .thumb {
+      background: linear-gradient(160deg, var(--curioso-bg), var(--card));
+      border-radius: 18px;
+      padding: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      aspect-ratio: 1 / 1;
+    }
+    .thumb img { border-radius: 12px; max-height: 100%; width: auto; }
+
+    .section h2 {
+      margin: 0 0 0.5rem;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+    }
+    .section h2 .emoji { font-size: 1.4rem; }
+    .section p { margin: 0.4rem 0; color: var(--text); }
+    .section ul { margin: 0.5rem 0 0; padding-left: 1.1rem; }
+    .section li { margin: 0.35rem 0; }
+    .section li::marker { color: var(--accent); }
+
+    /* ---------- Dato curioso ---------- */
+    .curioso {
+      background: var(--curioso-bg);
+      border: 1px dashed var(--curioso-border);
+      border-radius: 18px;
+      padding: 1.1rem 1.3rem;
+      margin: 0 0 2rem;
+      display: flex;
+      gap: 0.9rem;
+      align-items: flex-start;
+    }
+    .curioso .icon { font-size: 1.6rem; line-height: 1; }
+    .curioso .label {
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-size: 0.78rem;
+      display: block;
+      margin-bottom: 0.15rem;
+    }
+    .curioso p { margin: 0; }
+
+    /* ---------- Conclusión ---------- */
+    .conclusion {
+      text-align: center;
+      background:
+        radial-gradient(600px 200px at 50% 0%, var(--accent-2), transparent 70%),
+        var(--card);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 2.5rem 1.5rem;
+      margin: 1rem 0 3rem;
+      box-shadow: var(--shadow);
+    }
+    .conclusion h2 { margin-top: 0; font-size: 1.6rem; }
+    .conclusion p { max-width: 560px; margin: 0.5rem auto 0; font-size: 1.1rem; }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1.25rem 3rem;
+      color: var(--text-soft);
+      font-size: 0.9rem;
+    }
+    footer .heart { color: var(--accent); }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 640px) {
+      article.section,
+      article.section:nth-child(even) { grid-template-columns: 1fr; }
+      article.section:nth-child(even) .thumb { order: 0; }
+      .thumb { max-width: 220px; margin: 0 auto; aspect-ratio: auto; }
+      .section h2 { justify-content: flex-start; }
+    }
+
+    /* subtle reveal */
+    @media (prefers-reduced-motion: no-preference) {
+      .section, .curioso, .conclusion { animation: rise 0.6s ease both; }
+      @keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="paws">🐾 &nbsp; 🐾 &nbsp; 🐾</div>
+    <h1>La salud de <span class="accent">los gatos</span></h1>
+    <p class="lead">Todo lo que un buen dueño debe saber para mantener a su gato sano, feliz y lleno de energía.</p>
+    <div class="byline">
+      <span class="chip">✍️ Caroll Tatiana Blanco Quintero</span>
+      <span class="chip">🎓 Grado 7-A</span>
+    </div>
+    <img class="hero-img" src="img/ejercicio.png" alt="Gato corriendo feliz" />
+  </header>
+
+  <main>
+    <p class="intro">
+      Los gatos son mascotas independientes y cariñosas, pero su bienestar depende de
+      los cuidados que reciben. Conoce los aspectos más importantes de su salud. 🐱
+    </p>
+
+    <!-- HIGIENE -->
+    <article class="section">
+      <div class="thumb"><img src="img/higiene.png" alt="Gato en su arenero" /></div>
+      <div>
+        <h2><span class="emoji">🧼</span> Higiene</h2>
+        <p>Los gatos suelen asearse solos, pero necesitan algunos cuidados adicionales:</p>
+        <ul>
+          <li>Mantener limpio su arenero.</li>
+          <li>Cepillar su pelaje regularmente.</li>
+          <li>Revisar sus uñas y oídos.</li>
+          <li>Limpiar su recipiente de comida y agua.</li>
+        </ul>
+      </div>
+    </article>
+
+    <div class="curioso">
+      <span class="icon">😴</span>
+      <div>
+        <span class="label">Dato curioso</span>
+        <p>Los gatos duermen entre 12 y 16 horas al día… ¡y algunos hasta 20 horas!</p>
+      </div>
+    </div>
+
+    <!-- ALIMENTACIÓN -->
+    <article class="section">
+      <div class="thumb"><img src="img/alimentacion.png" alt="Gato con su comida" /></div>
+      <div>
+        <h2><span class="emoji">🍽️</span> Alimentación</h2>
+        <p>
+          Una buena alimentación es fundamental para la salud de los gatos. Deben consumir
+          alimentos ricos en proteínas, vitaminas y minerales. También necesitan agua fresca
+          todos los días para mantenerse hidratados.
+        </p>
+      </div>
+    </article>
+
+    <!-- VACUNACIÓN -->
+    <article class="section">
+      <div class="thumb"><img src="img/vacunacion.png" alt="Gato asomándose curioso" /></div>
+      <div>
+        <h2><span class="emoji">💉</span> Vacunación y desparasitación</h2>
+        <p>
+          Las vacunas ayudan a prevenir enfermedades graves. Además, la desparasitación
+          protege a los gatos de parásitos internos y externos que pueden afectar su salud.
+        </p>
+      </div>
+    </article>
+
+    <div class="curioso">
+      <span class="icon">🐈</span>
+      <div>
+        <span class="label">Dato curioso</span>
+        <p>Un gato puede saltar hasta 6 veces la longitud de su cuerpo en un solo salto.</p>
+      </div>
+    </div>
+
+    <!-- EJERCICIO -->
+    <article class="section">
+      <div class="thumb"><img src="img/ejercicio.png" alt="Gato corriendo" /></div>
+      <div>
+        <h2><span class="emoji">🏃</span> Ejercicio y actividad física</h2>
+        <p>
+          El ejercicio ayuda a prevenir el sobrepeso y mantiene a los gatos activos.
+          Jugar con pelotas, cuerdas o juguetes especiales mejora su salud física y mental.
+        </p>
+      </div>
+    </article>
+
+    <!-- ENFERMEDADES -->
+    <article class="section">
+      <div class="thumb"><img src="img/enfermedades.png" alt="Gato descansando" /></div>
+      <div>
+        <h2><span class="emoji">🤒</span> Enfermedades comunes</h2>
+        <p>Algunas enfermedades que pueden afectar a los gatos son:</p>
+        <ul>
+          <li>Resfriados y problemas respiratorios.</li>
+          <li>Parásitos.</li>
+          <li>Obesidad.</li>
+          <li>Problemas dentales.</li>
+          <li>Enfermedades renales.</li>
+        </ul>
+      </div>
+    </article>
+
+    <div class="curioso">
+      <span class="icon">👂</span>
+      <div>
+        <span class="label">Dato curioso</span>
+        <p>Los gatos tienen aproximadamente 32 músculos en cada oreja, lo que les permite moverlas en distintas direcciones.</p>
+      </div>
+    </div>
+
+    <!-- SALUD MENTAL -->
+    <article class="section">
+      <div class="thumb"><img src="img/salud-mental.png" alt="Dos gatos acurrucados" /></div>
+      <div>
+        <h2><span class="emoji">💜</span> Salud mental y emocional</h2>
+        <p>
+          Los gatos también necesitan bienestar emocional. Un ambiente tranquilo y seguro,
+          con la atención de sus dueños, ayuda a reducir el estrés y la ansiedad.
+        </p>
+      </div>
+    </article>
+
+    <!-- SEÑALES DE ALERTA -->
+    <article class="section">
+      <div class="thumb"><img src="img/senales.png" alt="Gato en reposo" /></div>
+      <div>
+        <h2><span class="emoji">⚠️</span> Señales de alerta</h2>
+        <p>Es importante observar si el gato presenta:</p>
+        <ul>
+          <li>Pérdida de apetito.</li>
+          <li>Falta de energía.</li>
+          <li>Vómito frecuente.</li>
+          <li>Dificultad para respirar.</li>
+          <li>Cambios de humor.</li>
+        </ul>
+      </div>
+    </article>
+
+    <div class="curioso">
+      <span class="icon">🐾</span>
+      <div>
+        <span class="label">Dato curioso</span>
+        <p>Sus bigotes los ayudan a medir espacios y orientarse en lugares oscuros.</p>
+      </div>
+    </div>
+
+    <!-- CONCLUSIÓN -->
+    <section class="conclusion">
+      <h2>Conclusión</h2>
+      <p>
+        La salud de los gatos depende de una alimentación adecuada, ejercicio,
+        vacunación y mucha atención. 🐱❤️
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>Trabajo de <strong>Caroll Tatiana Blanco Quintero</strong> · Grado 7-A</p>
+    <p>Hecho con <span class="heart">♥</span> para nuestros amigos felinos 🐾</p>
+  </footer>
+</body>
+</html>
