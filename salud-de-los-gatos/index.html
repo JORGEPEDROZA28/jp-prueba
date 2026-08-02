@@ -268,69 +268,58 @@
     .section li { position: relative; padding-left: 1.6rem; }
     .section li::before { content: "🐾"; position: absolute; left: 0; font-size: 0.85rem; top: 0.15rem; }
 
-    /* ---------- Dato curioso: speech bubble ---------- */
-    .curioso {
-      display: flex;
-      align-items: flex-end;
-      gap: 0.9rem;
-      margin: 0 0 1.8rem;
-      padding: 0 0.5rem;
-    }
-    .curioso.right { flex-direction: row-reverse; }
-    .curioso .avatar {
-      flex: 0 0 auto;
-      width: 58px; height: 58px;
-      display: grid; place-items: center;
-      font-size: 2rem;
-      background: linear-gradient(135deg, var(--accent-2), var(--accent));
-      border-radius: 50%;
+    /* ---------- Dato curioso: reveal button + speech bubble ---------- */
+    .curioso { margin: 0 0 1.8rem; display: flex; flex-direction: column; align-items: center; }
+    .curioso-btn {
+      display: inline-flex; align-items: center; gap: 0.55rem;
+      font: inherit; font-weight: 700; font-size: 1rem; color: #fff;
+      cursor: pointer;
+      background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+      border: none; padding: 0.75rem 1.5rem; border-radius: 999px;
       box-shadow: var(--shadow-sm);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .curioso-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+    .curioso-btn:active { transform: translateY(0); }
+    .curioso-btn .chev { transition: transform 0.3s ease; font-size: 0.85rem; }
+    .curioso.open .curioso-btn .chev { transform: rotate(180deg); }
+
+    .fact {
+      display: flex; align-items: flex-end; gap: 0.9rem;
+      width: 100%; max-width: 660px;
+      max-height: 0; opacity: 0; overflow: hidden;
+      transform: translateY(-8px);
+      transition: max-height 0.45s ease, opacity 0.35s ease, margin 0.3s ease, transform 0.35s ease;
+    }
+    .curioso.open .fact { max-height: 340px; opacity: 1; margin-top: 1.1rem; transform: none; }
+    .fact .avatar {
+      flex: 0 0 auto; width: 58px; height: 58px;
+      display: grid; place-items: center; font-size: 2rem;
+      background: linear-gradient(135deg, var(--accent-2), var(--accent));
+      border-radius: 50%; box-shadow: var(--shadow-sm);
     }
     .bubble {
-      position: relative;
+      position: relative; flex: 1;
       background: var(--bubble-bg);
       border: 1.5px solid var(--bubble-border);
       border-radius: 20px;
       padding: 1rem 1.25rem;
-      max-width: 620px;
       box-shadow: var(--shadow-sm);
     }
-    /* bubble tail (left version points left toward avatar) */
     .bubble::before, .bubble::after {
-      content: "";
-      position: absolute;
-      bottom: 14px;
-      width: 0; height: 0;
-      border-style: solid;
+      content: ""; position: absolute; bottom: 16px; width: 0; height: 0; border-style: solid;
     }
-    .curioso:not(.right) .bubble::before {
-      left: -13px;
-      border-width: 8px 13px 8px 0;
+    .bubble::before {
+      left: -13px; border-width: 8px 13px 8px 0;
       border-color: transparent var(--bubble-border) transparent transparent;
     }
-    .curioso:not(.right) .bubble::after {
-      left: -10px;
-      border-width: 7px 11px 7px 0;
+    .bubble::after {
+      left: -10px; border-width: 7px 11px 7px 0;
       border-color: transparent var(--bubble-bg) transparent transparent;
     }
-    .curioso.right .bubble::before {
-      right: -13px;
-      border-width: 8px 0 8px 13px;
-      border-color: transparent transparent transparent var(--bubble-border);
-    }
-    .curioso.right .bubble::after {
-      right: -10px;
-      border-width: 7px 0 7px 11px;
-      border-color: transparent transparent transparent var(--bubble-bg);
-    }
     .bubble .label {
-      display: inline-block;
-      font-weight: 800;
-      color: var(--accent-strong);
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-      font-size: 0.74rem;
-      margin-bottom: 0.15rem;
+      display: inline-block; font-weight: 800; color: var(--accent-strong);
+      text-transform: uppercase; letter-spacing: 0.07em; font-size: 0.74rem; margin-bottom: 0.15rem;
     }
     .bubble p { margin: 0; }
 
@@ -382,10 +371,7 @@
       article.section, article.section:nth-of-type(even) { grid-template-columns: 1fr; }
       article.section:nth-of-type(even) .thumb { order: 0; }
       .thumb { max-width: 240px; margin: 0 auto; aspect-ratio: auto; }
-      .curioso, .curioso.right { flex-direction: row; }
-      .curioso.right .bubble::before, .curioso.right .bubble::after { right: auto; }
-      .curioso .bubble::before { left: -13px; border-width: 8px 13px 8px 0; border-color: transparent var(--bubble-border) transparent transparent; }
-      .curioso .bubble::after { left: -10px; border-width: 7px 11px 7px 0; border-color: transparent var(--bubble-bg) transparent transparent; }
+      .fact .avatar { width: 46px; height: 46px; font-size: 1.5rem; }
     }
     @media (prefers-reduced-motion: no-preference) {
       .section, .curioso, .conclusion, .stat { animation: rise 0.6s ease both; }
@@ -448,10 +434,15 @@
     </article>
 
     <div class="curioso">
-      <div class="avatar">😴</div>
-      <div class="bubble">
-        <span class="label">Dato curioso</span>
-        <p>Los gatos duermen entre 12 y 16 horas al día… ¡y algunos hasta 20 horas!</p>
+      <button class="curioso-btn" type="button" onclick="toggleDato(this)" aria-expanded="false">
+        <span class="ic">💡</span><span class="lbl">Ver dato curioso</span><span class="chev">▾</span>
+      </button>
+      <div class="fact">
+        <div class="avatar">😴</div>
+        <div class="bubble">
+          <span class="label">Dato curioso</span>
+          <p>Los gatos duermen entre 12 y 16 horas al día… ¡y algunos hasta 20 horas!</p>
+        </div>
       </div>
     </div>
 
@@ -480,11 +471,16 @@
       </div>
     </article>
 
-    <div class="curioso right">
-      <div class="avatar">🐈</div>
-      <div class="bubble">
-        <span class="label">Dato curioso</span>
-        <p>Un gato puede saltar hasta 6 veces la longitud de su cuerpo en un solo salto.</p>
+    <div class="curioso">
+      <button class="curioso-btn" type="button" onclick="toggleDato(this)" aria-expanded="false">
+        <span class="ic">💡</span><span class="lbl">Ver dato curioso</span><span class="chev">▾</span>
+      </button>
+      <div class="fact">
+        <div class="avatar">🐈</div>
+        <div class="bubble">
+          <span class="label">Dato curioso</span>
+          <p>Un gato puede saltar hasta 6 veces la longitud de su cuerpo en un solo salto.</p>
+        </div>
       </div>
     </div>
 
@@ -517,10 +513,15 @@
     </article>
 
     <div class="curioso">
-      <div class="avatar">👂</div>
-      <div class="bubble">
-        <span class="label">Dato curioso</span>
-        <p>Los gatos tienen aproximadamente 32 músculos en cada oreja, lo que les permite moverlas en distintas direcciones.</p>
+      <button class="curioso-btn" type="button" onclick="toggleDato(this)" aria-expanded="false">
+        <span class="ic">💡</span><span class="lbl">Ver dato curioso</span><span class="chev">▾</span>
+      </button>
+      <div class="fact">
+        <div class="avatar">👂</div>
+        <div class="bubble">
+          <span class="label">Dato curioso</span>
+          <p>Los gatos tienen aproximadamente 32 músculos en cada oreja, lo que les permite moverlas en distintas direcciones.</p>
+        </div>
       </div>
     </div>
 
@@ -552,11 +553,16 @@
       </div>
     </article>
 
-    <div class="curioso right">
-      <div class="avatar">🐾</div>
-      <div class="bubble">
-        <span class="label">Dato curioso</span>
-        <p>Sus bigotes los ayudan a medir espacios y orientarse en lugares oscuros.</p>
+    <div class="curioso">
+      <button class="curioso-btn" type="button" onclick="toggleDato(this)" aria-expanded="false">
+        <span class="ic">💡</span><span class="lbl">Ver dato curioso</span><span class="chev">▾</span>
+      </button>
+      <div class="fact">
+        <div class="avatar">🐾</div>
+        <div class="bubble">
+          <span class="label">Dato curioso</span>
+          <p>Sus bigotes los ayudan a medir espacios y orientarse en lugares oscuros.</p>
+        </div>
       </div>
     </div>
 
@@ -575,5 +581,13 @@
     <p>Hecho con <span class="heart">♥</span> para nuestros amigos felinos 🐾</p>
   </footer>
 
+  <script>
+    function toggleDato(btn) {
+      var c = btn.closest('.curioso');
+      var open = c.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      btn.querySelector('.lbl').textContent = open ? 'Ocultar dato curioso' : 'Ver dato curioso';
+    }
+  </script>
 </body>
 </html>
