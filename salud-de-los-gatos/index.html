@@ -247,8 +247,9 @@
     .video-frame {
       position: relative;
       width: 100%;
-      padding-top: 56.25%; /* 16:9 */
-      margin-top: 1.1rem;
+      max-width: 340px;        /* vertical Short: keep it phone-sized */
+      margin: 1.1rem auto 0;
+      padding-top: 177.78%;    /* 9:16 */
       border-radius: 16px;
       overflow: hidden;
       background: #000;
@@ -461,7 +462,7 @@
       <p>Aprende de forma visual cómo cuidar la salud de tu gato. ¡Dale play! 🐱</p>
       <div class="video-frame">
         <iframe
-          src="https://www.youtube-nocookie.com/embed/_PJcPgGZQN0?rel=0"
+          src="https://www.youtube-nocookie.com/embed/7YOYmVT1qo8?rel=0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           referrerpolicy="strict-origin-when-cross-origin"
           allowfullscreen
